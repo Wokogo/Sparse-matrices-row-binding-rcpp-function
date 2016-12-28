@@ -1,5 +1,5 @@
 Through a simple example, the `rbindSpCpp` function from the `Rbind_SparseMatrix.cpp` file 
-is compared with the standard `rbind` function in R software console as follow.
+is compared with the standard `rbind` function in R software console as follows.
 
 a = matrix(c(1, 0, 0, 0, 0, 2, 0, 0, 3), 3, 3, byrow = TRUE);
 a = as(a, Class = "sparseMatrix"); a
