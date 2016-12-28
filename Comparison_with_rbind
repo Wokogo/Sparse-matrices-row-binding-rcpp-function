@@ -1,0 +1,50 @@
+Through a simple example, the `rbindSpCpp` function from the `Rbind_SparseMatrix.cpp` file is compared with the standard `rbind` function in R software console as follow.
+
+a = matrix(c(1, 0, 0, 0, 0, 2, 0, 0, 3), 3, 3, byrow = TRUE);
+a = as(a, Class = "sparseMatrix"); a
+
+```
+# 3 x 3 sparse Matrix of class "dgCMatrix"      
+# [1,] 1 . .
+# [2,] . . 2
+# [3,] . . 3
+```
+
+b = matrix(c(0, 4, 5, 6, 0, 7), 2, 3, byrow = TRUE);
+b = as(b, Class = "sparseMatrix"); b
+
+```
+# 2 x 3 sparse Matrix of class "dgCMatrix"     
+# [1,] . 4 5
+# [2,] 6 . 7
+```
+c1=rbindSpCpp(a,b); c1
+
+```
+# 5 x 3 sparse Matrix of class "dgCMatrix"
+# [1,] 1 . .
+# [2,] . . 2
+# [3,] . . 3
+# [4,] . 4 5
+# [5,] 6 . 7
+```
+c2=rbind(a,b); c2
+
+
+```
+# 5 x 3 sparse Matrix of class "dgCMatrix"          
+# [1,] 1 . .
+# [2,] . . 2
+# [3,] . . 3
+# [4,] . 4 5
+# [5,] 6 . 7
+```
+
+Response from `microbenchmark`:
+
+```
+# Unit: microseconds
+# expr     min       lq      mean   median       uq      max neval
+#   c1   8.256   9.5835  13.39546  12.2925  14.4040  148.012  1000
+#   c2 172.048 182.8845 212.88063 193.6830 214.3855 2085.956  1000
+```
